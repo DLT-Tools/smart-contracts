@@ -1,0 +1,82 @@
+{
+  "name": "dlt-tools-solidity",
+  "description": "Business Smart Contract library for Solidity",
+  "version": "1.0.0",
+  "files": [
+    "/contracts/**/*.sol",
+    "!/contracts/mocks/**/*"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DLT-Tools/smart-contracts.git"
+  },
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "smart",
+    "contracts",
+    "security",
+    "dlt-tools"
+  ],
+  "author": "DLT Tools Community <grafbcn@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DLT-Tools/smart-contracts/issues"
+  },
+  "homepage": "https://github.com/DLT-Tools/smart-contracts",
+  "scripts": {
+    "c": "npx hardhat compile",
+    "cf": "npx hardhat compile --force",
+    "t": "npx hardhat test",
+    "bc": "npx hardhat node",
+    "co": "npx hardhat coverage",
+    "s": "npx solhint contracts/DLTCompanyShares.sol",
+    "su": "surya mdreport DLTTools.md contracts/DLTTools.sol",
+    "so": "npx solium -f contracts/DLTTools.sol",
+    "ds": "npx hardhat run ./scripts/deploy.ts --network sepolia",
+    "dl": "npx hardhat run ./scripts/deploy.ts --network localhost",
+    "dlp": "npx hardhat run ./scripts/deployPrivate.ts --network localhost",
+    "de": "npx hardhat run ./scripts/deploy.ts --network ethereum",
+    "dep": "npx hardhat run ./scripts/deployPrivate.ts --network ethereum",
+    "dm": "npx hardhat run ./scripts/deploy.ts --network mumbai",
+    "dmp": "npx hardhat run ./scripts/deployPrivate.ts --network mumbai",
+    "dbp": "npx hardhat run ./scripts/deployPrivate.ts --network besu",
+    "dp": "npx hardhat run ./scripts/deploy.ts --network polygon",
+    "dpp": "npx hardhat run ./scripts/deployPrivate.ts --network polygon",
+    "v": "npx hardhat --network polygon verify 0x46F26D1404B2C936c2CBeC5eafbF3207C6080000 --contract contracts/DLTTools.sol:DLTTools",
+    "n": "npx hardhat node"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "ethers": "^6.13.1",
+    "hardhat": "^2.22.6",
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.7",
+    "@nomicfoundation/hardhat-ethers": "^3.0.6",
+    "@nomicfoundation/hardhat-ignition": "^0.15.5",
+    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.5",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.11",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.8",
+    "@nomicfoundation/ignition-core": "^0.15.5",
+    "@openzeppelin/contracts": "^5.0.2",
+    "@typechain/ethers-v6": "^0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "@types/chai": "4",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^20.14.10",
+    "chai": "4",
+    "dotenv": "^16.4.5",
+    "ethlint": "^1.2.5",
+    "hardhat-gas-reporter": "^2.2.0",
+    "prettier": "^3.3.2",
+    "solc": "^0.8.26",
+    "solhint": "^5.0.1",
+    "solidity-coverage": "^0.8.12",
+    "solium": "^1.2.5",
+    "surya": "^0.4.11",
+    "ts-node": "^10.9.2",
+    "typechain": "^8.3.2",
+    "typescript": "^5.5.3"
+  }
+}
