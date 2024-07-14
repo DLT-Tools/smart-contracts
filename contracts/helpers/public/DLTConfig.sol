@@ -10,6 +10,19 @@ import { SetConfig } from '../../models/public/SetConfig.sol';
 contract DLTConfig is IDLTConfig {
     // Properties
     SetConfig private _setConfig;
+    mapping(address => string) _customAddressToSCName;
+    mapping(string => address) _customSCNameToAddress;
+
+    // Constructors
+    constructor() {
+        // Initialize the non-mapping fields of the struct
+        _setConfig.dltCompanyShares = address(0);
+        _setConfig.dltBlacklistLogic = address(0);
+        _setConfig.dltBlacklistStorage = address(0);
+        _setConfig.dltKYCDataLogic = address(0);
+        _setConfig.dltKYCDataStorage = address(0);
+        _setConfig.dltRoleManager = address(0);
+    }
 
     // Methods
     function getDLTCompanyShares() external view returns (address) {
@@ -42,6 +55,22 @@ contract DLTConfig is IDLTConfig {
         return _setConfig.dltRoleManager;
     }
 
+    function setCustomAddressToSCName(address addr_, string memory name_) public {
+        _customAddressToSCName[addr_] = name_;
+    }
+
+    function getCustomAddressBySCName(string memory name_) public view returns (address addr) {
+        return _customSCNameToAddress[name_];
+    }
+
+    function setCustomSCNameToAddress(string memory name_, address addr_) public {
+        _customSCNameToAddress[name_] = addr_;
+    }
+
+    function getCustomSCNameByAddress(address addr_) public view returns (string memory name) {
+        return _customAddressToSCName[addr_];
+    }
+
     function set(SetConfig calldata setConfig_) external {
         // DLTCompanyShares
         if (_setConfig.dltCompanyShares != setConfig_.dltCompanyShares) {
@@ -67,6 +96,7 @@ contract DLTConfig is IDLTConfig {
         if (_setConfig.dltKYCDataStorage != setConfig_.dltKYCDataStorage) {
             emit DLTKYCDataStorageChanged(_setConfig.dltKYCDataStorage, setConfig_.dltKYCDataStorage);
         }
+        // Custom
         _setConfig = setConfig_;
     }
 }
