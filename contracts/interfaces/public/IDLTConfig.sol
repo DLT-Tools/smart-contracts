@@ -31,4 +31,12 @@ interface IDLTConfig {
     function getDLTKYCDataStorage() external view returns (address);
 
     function set(SetConfig calldata setConfig) external;
+
+    function setCustomAddressToSCName(address addr, string memory name) external;
+
+    function getCustomAddressBySCName(string memory name) external view returns (address addr);
+
+    function setCustomSCNameToAddress(string memory name, address addr) external;
+
+    function getCustomSCNameByAddress(address addr) external view returns (string memory name);
 }
