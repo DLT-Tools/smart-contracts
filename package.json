@@ -1,10 +1,11 @@
 {
   "name": "dlt-tools-solidity",
   "description": "Business Smart Contract library for Solidity",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "files": [
     "/contracts/**/*.sol",
-    "!/contracts/mocks/**/*"
+    "!/contracts/mocks/**/*",
+    "typechain-types"
   ],
   "main": "index.js",
   "repository": {
