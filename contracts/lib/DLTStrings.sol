@@ -80,4 +80,60 @@ library DLTStrings {
         }
         return string(str);
     }
+
+    function formatDate(uint256 timestamp_) internal pure returns (string memory) {
+        // Convert the timestamp to a YYYYMMDD format (UTC)
+        uint16 year = uint16((timestamp_ / 31556926) + 1970); // 31556926 seconds in a year
+        uint8 month = uint8((timestamp_ % 31556926) / 2629743) + 1; // 2629743 seconds in a month
+        uint8 day = uint8((timestamp_ % 2629743) / 86400) + 1; // 86400 seconds in a day
+
+        return string(abi.encodePacked(uint2str(year), twoDigitFormat(month), twoDigitFormat(day)));
+    }
+
+    function zeroPadding(uint256 length_) internal pure returns (string memory) {
+        bytes memory zeros = new bytes(length_);
+        for (uint256 i = 0; i < length_; i++) {
+            zeros[i] = '0';
+        }
+        return string(zeros);
+    }
+
+    function twoDigitFormat(uint8 number_) internal pure returns (string memory) {
+        if (number_ < 10) {
+            return string(abi.encodePacked('0', uint2str(number_)));
+        } else {
+            return uint2str(number_);
+        }
+    }
+
+    function parseUint8(string memory s_) internal pure returns (uint8) {
+        bytes memory b = bytes(s_);
+        uint8 result = 0;
+        for (uint256 i = 0; i < b.length; i++) {
+            if (uint8(b[i]) >= 48 && uint8(b[i]) <= 57) {
+                result = result * 10 + (uint8(b[i]) - 48);
+            }
+        }
+        return result;
+    }
+
+    function parseUint(string memory s_) internal pure returns (uint256) {
+        bytes memory b = bytes(s_);
+        uint256 result = 0;
+        for (uint256 i = 0; i < b.length; i++) {
+            if (uint8(b[i]) >= 48 && uint8(b[i]) <= 57) {
+                result = result * 10 + (uint8(b[i]) - 48);
+            }
+        }
+        return result;
+    }
+
+    function substring(string memory str_, uint256 startIndex_, uint256 endIndex_) internal pure returns (string memory) {
+        bytes memory strBytes = bytes(str_);
+        bytes memory result = new bytes(endIndex_ - startIndex_);
+        for (uint256 i = startIndex_; i < endIndex_; i++) {
+            result[i - startIndex_] = strBytes[i];
+        }
+        return string(result);
+    }
 }
