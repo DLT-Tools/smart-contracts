@@ -8,7 +8,7 @@ import { DLTBase } from '../base/DLTBase.sol';
 import { BlockedNFT } from '../models/BlockedNFT.sol';
 import { BlockedWallet } from '../models/BlockedWallet.sol';
 import { BLACKLIST_MANAGER_ROLE } from '../common/Roles.sol';
-import { IDLTConfig } from '../interfaces/public/IDLTConfig.sol';
+import { IDLTConfig } from '../interfaces/publicDir/IDLTConfig.sol';
 import { IDLTBlacklistStorage } from '../interfaces/IDLTBlacklistStorage.sol';
 import { IDLTBlacklistLogic } from '../interfaces/IDLTBlacklistLogic.sol';
 import { DLTValidations } from '../lib/DLTValidations.sol';

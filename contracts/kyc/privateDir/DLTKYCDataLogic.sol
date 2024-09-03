@@ -4,11 +4,11 @@ pragma solidity ^0.8.19;
 import { DLTBase } from '../../base/DLTBase.sol';
 import { KYCStatus } from '../../common/KYCStatus.sol';
 import { KYC_BACKEND_ROLE } from '../../common/Roles.sol';
-import { IDLTKYCDataLogic } from '../../interfaces/private/IDLTKYCDataLogic.sol';
-import { IDLTKYCDataStorage } from '../../interfaces/private/IDLTKYCDataStorage.sol';
-import { IDLTConfig } from '../../interfaces/private/IDLTConfig.sol';
-import { KYCData } from '../../models/private/KYCData.sol';
-import { KYCRequest } from '../../models/private/KYCRequest.sol';
+import { IDLTKYCDataLogic } from '../../interfaces/privateDir/IDLTKYCDataLogic.sol';
+import { IDLTKYCDataStorage } from '../../interfaces/privateDir/IDLTKYCDataStorage.sol';
+import { IDLTConfig } from '../../interfaces/privateDir/IDLTConfig.sol';
+import { KYCData } from '../../models/privateDir/KYCData.sol';
+import { KYCRequest } from '../../models/privateDir/KYCRequest.sol';
 
 contract DLTKYCDataLogic is IDLTKYCDataLogic, DLTBase {
     constructor(address dltConfig_) DLTBase(dltConfig_) {}

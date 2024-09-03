@@ -3,7 +3,7 @@ pragma solidity 0.8.24;
 
 import { BlockedNFT } from '../models/BlockedNFT.sol';
 import { BlockedWallet } from '../models/BlockedWallet.sol';
-import { IDLTConfig } from './public/IDLTConfig.sol';
+import { IDLTConfig } from './publicDir/IDLTConfig.sol';
 import { IDLTBlacklistStorage } from './IDLTBlacklistStorage.sol';
 import { IDLTLogic } from './IDLTLogic.sol';
 

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity 0.8.24;
 
-import { IDLTConfig } from '../../interfaces/public/IDLTConfig.sol';
-import { SetConfig } from '../../models/public/SetConfig.sol';
+import { IDLTConfig } from '../../interfaces/publicDir/IDLTConfig.sol';
+import { SetConfig } from '../../models/publicDir/SetConfig.sol';
 
 /// @title DLTBase
 /// @author DLT-Tools Team

@@ -2,12 +2,12 @@
 pragma solidity ^0.8.19;
 
 import { EnumerableSet } from '@openzeppelin/contracts/utils/structs/EnumerableSet.sol';
-import { KYCData } from '../../models/private/KYCData.sol';
-import { KYCRequest } from '../../models/private/KYCRequest.sol';
-import { KYCTuple } from '../../models/private/KYCTuple.sol';
+import { KYCData } from '../../models/privateDir/KYCData.sol';
+import { KYCRequest } from '../../models/privateDir/KYCRequest.sol';
+import { KYCTuple } from '../../models/privateDir/KYCTuple.sol';
 import { DLTBase } from '../../base/DLTBase.sol';
-import { IDLTConfig } from '../../interfaces/private/IDLTConfig.sol';
-import { IDLTKYCDataStorage } from '../../interfaces/private/IDLTKYCDataStorage.sol';
+import { IDLTConfig } from '../../interfaces/privateDir/IDLTConfig.sol';
+import { IDLTKYCDataStorage } from '../../interfaces/privateDir/IDLTKYCDataStorage.sol';
 
 contract DLTKYCDataStorage is IDLTKYCDataStorage, DLTBase {
     using EnumerableSet for EnumerableSet.UintSet;

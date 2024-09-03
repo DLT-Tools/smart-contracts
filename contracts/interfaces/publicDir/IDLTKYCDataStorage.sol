@@ -2,7 +2,7 @@
 pragma solidity 0.8.24;
 
 import { IDLTStorage } from '../IDLTStorage.sol';
-import { KYCData } from '../../models/public/KYCData.sol';
+import { KYCData } from '../../models/publicDir/KYCData.sol';
 
 /// @title IDLTKYCDataStorage
 /// @author DLT-Tools Team

@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.19;
 
-import { KYCData } from '../../models/public/KYCData.sol';
+import { KYCData } from '../../models/publicDir/KYCData.sol';
 import { DLTBase } from '../../base/DLTBase.sol';
-import { IDLTConfig } from '../../interfaces/public/IDLTConfig.sol';
-import { IDLTKYCDataStorage } from '../../interfaces/public/IDLTKYCDataStorage.sol';
+import { IDLTConfig } from '../../interfaces/publicDir/IDLTConfig.sol';
+import { IDLTKYCDataStorage } from '../../interfaces/publicDir/IDLTKYCDataStorage.sol';
 import { DLTStrings } from '../../lib/DLTStrings.sol';
 
 contract DLTKYCDataStorage is IDLTKYCDataStorage, DLTBase {

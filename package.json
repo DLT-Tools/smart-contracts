@@ -1,7 +1,7 @@
 {
   "name": "dlt-tools-solidity",
   "description": "Business Smart Contract library for Solidity",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "files": [
     "/contracts/**/*.sol",
     "!/contracts/mocks/**/*",

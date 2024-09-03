@@ -2,7 +2,7 @@
 pragma solidity 0.8.24;
 
 import { Context } from '@openzeppelin/contracts/utils/Context.sol';
-import { IDLTConfig } from '../interfaces/public/IDLTConfig.sol';
+import { IDLTConfig } from '../interfaces/publicDir/IDLTConfig.sol';
 import { IDLTRoleManager } from '../interfaces/IDLTRoleManager.sol';
 import { DLTConfigHelper } from '../helpers/DLTConfigHelper.sol';
 import { IDLTAccessControl } from '../interfaces/IDLTAccessControl.sol';

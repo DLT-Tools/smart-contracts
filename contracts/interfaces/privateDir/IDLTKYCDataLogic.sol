@@ -2,8 +2,8 @@
 pragma solidity 0.8.24;
 
 import { IDLTStorage } from '../IDLTStorage.sol';
-import { KYCData } from '../../models/private/KYCData.sol';
-import { KYCRequest } from '../../models/private/KYCRequest.sol';
+import { KYCData } from '../../models/privateDir/KYCData.sol';
+import { KYCRequest } from '../../models/privateDir/KYCRequest.sol';
 import { KYCStatus } from '../../common/KYCStatus.sol';
 import { IDLTLogic } from '../IDLTLogic.sol';
 
