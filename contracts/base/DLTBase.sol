@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity 0.8.24;
+pragma solidity 0.8.27;
 
 import { DLTPausable } from '../security/DLTPausable.sol';
 import { DEFAULT_ADMIN_ROLE } from '../common/Roles.sol';

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity 0.8.24;
+pragma solidity 0.8.27;
 
 string constant PAUSER_ROLE_CODE = 'PAUSER_ROLE';
 string constant USER_MANAGER_ROLE_CODE = 'USER_MANAGER_ROLE';

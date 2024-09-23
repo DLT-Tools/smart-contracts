@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity 0.8.24;
+pragma solidity 0.8.27;
 
 library DLTStrings {
     function bytes32ToString(bytes32 bytes32_) public pure returns (string memory) {

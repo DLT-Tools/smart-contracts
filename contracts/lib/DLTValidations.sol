@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity 0.8.24;
+pragma solidity 0.8.27;
 
 import { DLTStrings } from '../lib/DLTStrings.sol';
 import { IERC721 } from '@openzeppelin/contracts/token/ERC721/IERC721.sol';

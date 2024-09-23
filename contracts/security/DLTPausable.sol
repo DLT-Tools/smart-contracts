@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity 0.8.24;
+pragma solidity 0.8.27;
 
 import { Pausable } from '@openzeppelin/contracts/utils/Pausable.sol';
 import { PAUSER_ROLE } from '../common/Roles.sol';
