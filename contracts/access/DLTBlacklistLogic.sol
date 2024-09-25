@@ -19,95 +19,36 @@ import { DLTValidations } from '../lib/DLTValidations.sol';
 /// @custom:security-contact support@beruwa.la
 contract DLTBlacklistLogic is IDLTBlacklistLogic, DLTBase {
     // Constants
-
     bytes4 private constant interfaceId_ERC721Enumerable = 0x780e9d63;
     bytes4 private constant interfaceId_ERC721 = 0x80ac58cd;
 
     // Constructors
-
     constructor(address dltConfig_) DLTBase(dltConfig_) {}
 
-    // Methods
+    // Methods: public write
+    function addWallet(BlockedWallet calldata blockedWallet_) public virtual onlyRole(BLACKLIST_MANAGER_ROLE) {
+        _addWallet(blockedWallet_);
+    }
 
+    function removeWallet(address wallet_) public virtual onlyRole(BLACKLIST_MANAGER_ROLE) {
+        _removeWallet(wallet_);
+    }
+
+    function addNFT(BlockedNFT calldata blockedNFT_) public virtual onlyRole(BLACKLIST_MANAGER_ROLE) {
+        _addNFT(blockedNFT_);
+    }
+
+    function removeNFT(address contractAddress_, uint256 tokenId_) public virtual onlyRole(BLACKLIST_MANAGER_ROLE) {
+        _removeNFT(contractAddress_, tokenId_);
+    }
+
+    // Methods: public read
     function getStorageAddress() public view returns (address) {
         return IDLTConfig(dltConfig).getDLTBlacklistStorage();
     }
 
-    function addWallet(
-        BlockedWallet calldata blockedWallet_
-    )
-        public
-        onlyRole(BLACKLIST_MANAGER_ROLE)    
-    {
-        DLTValidations.validAddress(blockedWallet_.wallet, 'wallet');
-        DLTValidations.validString(blockedWallet_.reasonBlocking, 'blockedWallet_.reasonBlocking');
-        require(blockedWallet_.isBlocked == true, 'DLTBlacklistLogic: is blocked need to be true');
-        address storageAddress_ = getStorageAddress();
-        require(
-            IDLTBlacklistStorage(storageAddress_).getBlockedWallet(blockedWallet_.wallet).isBlocked == false,
-            'DLTBlacklistLogic: wallet already blocked'
-        );
-        IDLTBlacklistStorage(storageAddress_).setBlockedWallet(blockedWallet_.wallet, blockedWallet_);
-        emit WalletAddedToBlacklist(blockedWallet_.wallet);
-    }
-
-    function removeWallet(address wallet_) public onlyRole(BLACKLIST_MANAGER_ROLE) {
-        DLTValidations.validAddress(wallet_, 'wallet_');
-        address storageAddress_ = getStorageAddress();
-        require(
-            IDLTBlacklistStorage(storageAddress_).getBlockedWallet(wallet_).isBlocked == true,
-            'DLTBlacklistLogic: wallet is not blocked'
-        );
-        BlockedWallet memory unblockedWallet = IDLTBlacklistStorage(storageAddress_).getBlockedWallet(wallet_);
-        unblockedWallet.isBlocked = false;
-        IDLTBlacklistStorage(storageAddress_).setBlockedWallet(wallet_, unblockedWallet);
-        emit WalletRemovedFromBlacklist(wallet_);
-    }
-
-    function addNFT(
-        BlockedNFT calldata blockedNFT_
-    )
-        public
-        onlyRole(BLACKLIST_MANAGER_ROLE)        
-    {
-        DLTValidations.validContract(blockedNFT_.contractAddress, 'blockedNFT_.contractAddress');
-        DLTValidations.validNFTTokenId(blockedNFT_.contractAddress, blockedNFT_.tokenId, 'blockedNFT_.tokenId');
-        DLTValidations.validString(blockedNFT_.reasonBlocking, 'blockedNFT_.reasonBlocking');
-        require(blockedNFT_.isBlocked == true, 'DLTBlacklistLogic: is blocked need to be true');
-        address storageAddress_ = getStorageAddress();
-        bool isBlocked = IDLTBlacklistStorage(storageAddress_)
-            .getBlockedNFT(blockedNFT_.contractAddress, blockedNFT_.tokenId)
-            .isBlocked == false;
-        require(isBlocked, 'DLTBlacklistLogic: NFT already blocked');
-        IDLTBlacklistStorage(storageAddress_).setBlockedNFT(blockedNFT_.contractAddress, blockedNFT_.tokenId, blockedNFT_);
-        emit NFTAddedToBlacklist(blockedNFT_.contractAddress, blockedNFT_.tokenId);
-    }
-
-    function removeNFT(
-        address contractAddress_,
-        uint256 tokenId_
-    )
-        public
-        onlyRole(BLACKLIST_MANAGER_ROLE)        
-    {
-        DLTValidations.validContract(contractAddress_, 'contractAddress_');
-        DLTValidations.validNFTTokenId(contractAddress_, tokenId_, 'tokenId_');
-        address storageAddress_ = getStorageAddress();
-        require(
-            IDLTBlacklistStorage(storageAddress_).getBlockedNFT(contractAddress_, tokenId_).isBlocked == true,
-            'DLTBlacklistLogic: NFT is not blocked'
-        );
-        BlockedNFT memory unblockedNFT = IDLTBlacklistStorage(storageAddress_).getBlockedNFT(contractAddress_, tokenId_);
-        unblockedNFT.isBlocked = false;
-        IDLTBlacklistStorage(storageAddress_).setBlockedNFT(contractAddress_, tokenId_, unblockedNFT);
-        emit NFTRemovedFromBlacklist(contractAddress_, tokenId_);
-    }
-
     // Return blocked token id's in specified collection and filtered by owner
-    function getBlockedNFTs(
-        address contractAddress_,
-        address owner_
-    ) public view returns (uint256[] memory) {
+    function getBlockedNFTs(address contractAddress_, address owner_) public view returns (uint256[] memory) {
         DLTValidations.validContract(contractAddress_, 'contractAddress_');
         DLTValidations.validAddress(owner_, 'owner_');
         IERC165 candidateContract = IERC165(contractAddress_);
@@ -140,5 +81,60 @@ contract DLTBlacklistLogic is IDLTBlacklistLogic, DLTBase {
         }
 
         return result;
+    }
+
+    // Methods: private & internal write
+    function _addWallet(BlockedWallet calldata blockedWallet_) internal virtual {
+        DLTValidations.validAddress(blockedWallet_.wallet, 'wallet');
+        DLTValidations.validString(blockedWallet_.reasonBlocking, 'blockedWallet_.reasonBlocking');
+        require(blockedWallet_.isBlocked == true, 'DLTBlacklistLogic: is blocked need to be true');
+        address storageAddress_ = getStorageAddress();
+        require(
+            IDLTBlacklistStorage(storageAddress_).getBlockedWallet(blockedWallet_.wallet).isBlocked == false,
+            'DLTBlacklistLogic: wallet already blocked'
+        );
+        IDLTBlacklistStorage(storageAddress_).setBlockedWallet(blockedWallet_.wallet, blockedWallet_);
+        emit WalletAddedToBlacklist(blockedWallet_.wallet);
+    }
+
+    function _removeWallet(address wallet_) internal virtual {
+        DLTValidations.validAddress(wallet_, 'wallet_');
+        address storageAddress_ = getStorageAddress();
+        require(
+            IDLTBlacklistStorage(storageAddress_).getBlockedWallet(wallet_).isBlocked == true,
+            'DLTBlacklistLogic: wallet is not blocked'
+        );
+        BlockedWallet memory unblockedWallet = IDLTBlacklistStorage(storageAddress_).getBlockedWallet(wallet_);
+        unblockedWallet.isBlocked = false;
+        IDLTBlacklistStorage(storageAddress_).setBlockedWallet(wallet_, unblockedWallet);
+        emit WalletRemovedFromBlacklist(wallet_);
+    }
+
+    function _addNFT(BlockedNFT calldata blockedNFT_) internal virtual {
+        DLTValidations.validContract(blockedNFT_.contractAddress, 'blockedNFT_.contractAddress');
+        DLTValidations.validNFTTokenId(blockedNFT_.contractAddress, blockedNFT_.tokenId, 'blockedNFT_.tokenId');
+        DLTValidations.validString(blockedNFT_.reasonBlocking, 'blockedNFT_.reasonBlocking');
+        require(blockedNFT_.isBlocked == true, 'DLTBlacklistLogic: is blocked need to be true');
+        address storageAddress_ = getStorageAddress();
+        bool isBlocked = IDLTBlacklistStorage(storageAddress_)
+            .getBlockedNFT(blockedNFT_.contractAddress, blockedNFT_.tokenId)
+            .isBlocked == false;
+        require(isBlocked, 'DLTBlacklistLogic: NFT already blocked');
+        IDLTBlacklistStorage(storageAddress_).setBlockedNFT(blockedNFT_.contractAddress, blockedNFT_.tokenId, blockedNFT_);
+        emit NFTAddedToBlacklist(blockedNFT_.contractAddress, blockedNFT_.tokenId);
+    }
+
+    function _removeNFT(address contractAddress_, uint256 tokenId_) internal virtual {
+        DLTValidations.validContract(contractAddress_, 'contractAddress_');
+        DLTValidations.validNFTTokenId(contractAddress_, tokenId_, 'tokenId_');
+        address storageAddress_ = getStorageAddress();
+        require(
+            IDLTBlacklistStorage(storageAddress_).getBlockedNFT(contractAddress_, tokenId_).isBlocked == true,
+            'DLTBlacklistLogic: NFT is not blocked'
+        );
+        BlockedNFT memory unblockedNFT = IDLTBlacklistStorage(storageAddress_).getBlockedNFT(contractAddress_, tokenId_);
+        unblockedNFT.isBlocked = false;
+        IDLTBlacklistStorage(storageAddress_).setBlockedNFT(contractAddress_, tokenId_, unblockedNFT);
+        emit NFTRemovedFromBlacklist(contractAddress_, tokenId_);
     }
 }
